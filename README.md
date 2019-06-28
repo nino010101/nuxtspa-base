@@ -1,10 +1,10 @@
 # nuxtspa-base
 
-> My hunky-dory Nuxt.js project
+> Nuxt の SPA モードで何か作りたいときのテンプレ用プロジェクト
 
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 $ yarn install
 
