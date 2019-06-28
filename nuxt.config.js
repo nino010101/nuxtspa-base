@@ -42,6 +42,19 @@ export default {
    */
   axios: {},
   /*
+   ** router configuration
+   */
+  router: {
+    extendRoutes(routes, resolve) {
+      routes.push({
+        name: 'custom',
+        path: '*',
+        component: resolve(__dirname, 'pages/error/404.vue')
+      })
+    },
+    middleware: 'routingFunc'
+  },
+  /*
    ** Build configuration
    */
   build: {
