@@ -1,3 +1,7 @@
+// module読み込み等
+require('dotenv').config()
+
+// config本体
 export default {
   mode: 'spa',
   /*
@@ -34,7 +38,8 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/dotenv'
   ],
   /*
    ** Axios module configuration

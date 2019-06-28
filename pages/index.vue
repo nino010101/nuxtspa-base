@@ -9,8 +9,11 @@
         My hunky-dory Nuxt.js project
       </h2>
       <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">
-          Documentation
+        <a
+          href="https://nuxtjs.org/"
+          target="_blank"
+          class="button--green"
+        >Documentation
         </a>
         <a
           href="https://github.com/nuxt/nuxt.js"
@@ -30,6 +33,9 @@ import Logo from '~/components/Logo.vue'
 export default {
   components: {
     Logo
+  },
+  mounted() {
+    console.log(process.env.TEST)
   }
 }
 </script>

@@ -9,7 +9,7 @@ const checkAuth = ({ route, store }) => {
 }
 
 const routingFunc = ({ route, store }) => {
-  checkAuth(route, store)
+  checkAuth({ route, store })
 }
 
 export default routingFunc
