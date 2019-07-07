@@ -31,13 +31,13 @@ export default {
         shadowBlur: 10
       },
       configBg: {
-        image: null,
-        // eslint-disable-next-line no-undef
-        filters: [Konva.Filters.RGB],
-        blue: 0,
-        green: 255
+        image: null
       },
-      image: null
+      baseRGB: {
+        blue: 0,
+        green: 0,
+        red: 0
+      }
     }
   },
   mounted() {
@@ -51,19 +51,26 @@ export default {
       this.$nextTick(() => {
         const node = this.$refs.image.getStage()
         node.cache()
-        node.getLayer().batchDraw()
+        // eslint-disable-next-line no-undef
+        node.filters([Konva.Filters.RGB])
+        node.blue(this.baseRGB.blue)
+        node.green(this.baseRGB.green)
       })
     }
   },
   methods: {
     changeColor() {
-      this.configBg.blue += 10
+      this.baseRGB.blue += 10
+      this.baseRGB.green += 10
       this.$nextTick(() => {
         const node = this.$refs.image.getStage()
         node.cache()
+        // eslint-disable-next-line no-undef
+        node.filters([Konva.Filters.RGB])
+        node.blue(this.baseRGB.blue)
+        node.green(this.baseRGB.green)
         node.getLayer().batchDraw()
       })
-      console.log(this.configBg)
     }
   }
 }
