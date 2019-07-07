@@ -31,7 +31,10 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    // konvaはSSR=falseでしか動かないため
+    { src: '@/plugins/nuxtKonva', ssr: false }
+  ],
   /*
    ** Nuxt.js modules
    */
