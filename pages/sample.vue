@@ -1,76 +1,104 @@
 <template>
   <div class="container">
-    <v-stage :config="configKonva" class="stage">
-      <v-layer>
-        <v-image ref="image" :config="configBg" />
-      </v-layer>
-    </v-stage>
-    <button @click="changeColor">
-      test
-    </button>
+    <div>
+      <div class="parts-sample">
+        <Canvas v-if="!isLoading" ref="canvas" :config="configKonva" :images="images" />
+      </div>
+      <div class="parts-sample">
+        <HSLSlider :hsl-values="images[0].hsl" @updateValue="onUpdateValue" />
+      </div>
+      <div class="parts-sample">
+        <SelectBox :config="selectConfig" :value="selectValue" @changeSelect="onChangeSelect" />
+      </div>
+    </div>
+  </div>
   </div>
 </template>
 
 <script>
+import Canvas from '~/components/Canvas.vue'
+import HSLSlider from '~/components/HSLSlider.vue'
+import SelectBox from '~/components/SelectBox.vue'
+import loadImage from '~/utils/loadImage'
 export default {
   components: {
+    Canvas,
+    HSLSlider,
+    SelectBox
   },
   data() {
     return {
+      isLoading: true,
       configKonva: {
         width: 500,
         height: 500
       },
-      configCircle: {
-        x: 250,
-        y: 250,
-        radius: 100,
-        fill: '#00c800',
-        stroke: 'black',
-        strokeWidth: 4,
-        shadowBlur: 10
+      images: [
+        { name: 'bg',
+          hsl: {
+            hue: 0,
+            saturation: 0,
+            luminance: 0
+          },
+          config: { image: null }
+        },
+        { name: 'main',
+          hsl: {
+            hue: 150,
+            saturation: 0,
+            luminance: 0
+          },
+          config: { image: null }
+        },
+        { name: 'sub',
+          hsl: {
+            hue: 150,
+            saturation: 0,
+            luminance: 0
+          },
+          config: { image: null }
+        }
+      ],
+      selectConfig: {
+        label: 'メイン画像',
+        default: '画像を選んでください',
+        options: ['youngwoman_37.png', 'youngwoman_38.png', 'youngwoman_42.png']
       },
-      configBg: {
-        image: null
-      },
-      baseRGB: {
-        blue: 0,
-        green: 0,
-        red: 0
-      }
+      selectValue: ''
     }
   },
   mounted() {
     console.log(process.env.TEST)
   },
   created() {
-    const image = new Image()
-    image.src = './kawaii_siru_base.png'
-    image.onload = () => {
-      this.configBg.image = image
-      this.$nextTick(() => {
-        const node = this.$refs.image.getStage()
-        node.cache()
-        // eslint-disable-next-line no-undef
-        node.filters([Konva.Filters.RGB])
-        node.blue(this.baseRGB.blue)
-        node.green(this.baseRGB.green)
-      })
-    }
+    this.createImages()
   },
   methods: {
-    changeColor() {
-      this.baseRGB.blue += 10
-      this.baseRGB.green += 10
-      this.$nextTick(() => {
-        const node = this.$refs.image.getStage()
-        node.cache()
-        // eslint-disable-next-line no-undef
-        node.filters([Konva.Filters.RGB])
-        node.blue(this.baseRGB.blue)
-        node.green(this.baseRGB.green)
-        node.getLayer().batchDraw()
+    async createImages() {
+      const imageBG = await loadImage('./kawaii_siru_base.png')
+      this.images[0].config.image = imageBG
+      const imageMain = await loadImage('./youngwoman_37.png')
+      this.images[1].config.image = imageMain
+      this.isLoading = false
+    },
+    onUpdateValue(data) {
+      // TODO:イメージごとに別のスライダーのフィルタを適用するように変更する
+      this.images.forEach((image) => {
+        image.hsl[data.hsl] = parseInt(data.value)
+        this.$refs.canvas.hslFilterDraw(image.name)
       })
+    },
+    onChangeImage() {
+      const mainImage = new Image()
+      mainImage.src = './youngwoman_37.png'
+      mainImage.onload = () => {
+        this.configMain.image = mainImage
+      }
+    },
+    async onChangeSelect(value) {
+      const imageMain = await loadImage(`./${value}`)
+      this.images[1].config.image = imageMain
+      this.$refs.canvas.refreshDraw(this.images[1].name)
     }
   }
 }
@@ -89,6 +117,11 @@ export default {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.parts-sample {
+  display: block;
+  padding-top: 12px;
 }
 
 .stage{
