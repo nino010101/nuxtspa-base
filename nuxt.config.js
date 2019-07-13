@@ -27,13 +27,14 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['~/assets/css/tailwind.css'],
+  css: ['~/assets/css/tailwind.css', '@fortawesome/fontawesome-svg-core/styles.css'],
   /*
    ** Plugins to load before mounting the App
    */
   plugins: [
     // konvaはSSR=falseでしか動かないため
-    { src: '@/plugins/nuxtKonva', ssr: false }
+    { src: '@/plugins/nuxtKonva', ssr: false },
+    { src: '@/plugins/fontawesome', ssr: false }
   ],
   /*
    ** Nuxt.js modules

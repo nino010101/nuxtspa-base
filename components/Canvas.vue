@@ -24,7 +24,7 @@ export default {
     images: {
       type: Array,
       required: true,
-      default: () => ([]),
+      default: () => [],
       validator: (value) => {
         // 画像表示が10枚以上にならないためのバリデーター
         return !(value.length > 10)
@@ -36,17 +36,18 @@ export default {
   },
   methods: {
     hslFilterDraw(target) {
-      const node = this.$refs[target][0].getStage()
+      const node = this.$refs[target][0].getStage().getLayer()
       node.cache()
       // eslint-disable-next-line no-undef
       node.filters([Konva.Filters.HSL])
       node.hue(parseFloat(this.images[0].hsl.hue))
       node.luminance(parseFloat(this.images[0].hsl.luminance))
       node.saturation(parseFloat(this.images[0].hsl.saturation))
-      node.getLayer().batchDraw()
+      node.batchDraw()
     },
     refreshDraw(target) {
-      const node = this.$refs[target][0].getStage()
+      const node = this.$refs[target][0].getStage().getLayer()
+      node.clearCache()
       node.getLayer().batchDraw()
     }
   }
@@ -54,5 +55,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

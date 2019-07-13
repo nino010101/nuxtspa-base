@@ -5,6 +5,9 @@
         <Canvas v-if="!isLoading" ref="canvas" :config="configKonva" :images="images" />
       </div>
       <div class="parts-sample">
+        <Accordion :label="'test'" />
+      </div>
+      <div class="parts-sample">
         <HSLSlider :hsl-values="images[0].hsl" @updateValue="onUpdateValue" />
       </div>
       <div class="parts-sample">
@@ -20,11 +23,13 @@ import Canvas from '~/components/Canvas.vue'
 import HSLSlider from '~/components/HSLSlider.vue'
 import SelectBox from '~/components/SelectBox.vue'
 import loadImage from '~/utils/loadImage'
+import Accordion from '~/components/Accordion.vue'
 export default {
   components: {
     Canvas,
     HSLSlider,
-    SelectBox
+    SelectBox,
+    Accordion
   },
   data() {
     return {
@@ -34,7 +39,8 @@ export default {
         height: 500
       },
       images: [
-        { name: 'bg',
+        {
+          name: 'bg',
           hsl: {
             hue: 0,
             saturation: 0,
@@ -42,7 +48,8 @@ export default {
           },
           config: { image: null }
         },
-        { name: 'main',
+        {
+          name: 'main',
           hsl: {
             hue: 150,
             saturation: 0,
@@ -50,7 +57,8 @@ export default {
           },
           config: { image: null }
         },
-        { name: 'sub',
+        {
+          name: 'sub',
           hsl: {
             hue: 150,
             saturation: 0,
@@ -77,7 +85,7 @@ export default {
     async createImages() {
       const imageBG = await loadImage('./kawaii_siru_base.png')
       this.images[0].config.image = imageBG
-      const imageMain = await loadImage('./youngwoman_37.png')
+      const imageMain = await loadImage('./kawaii_siru_base.png')
       this.images[1].config.image = imageMain
       this.isLoading = false
     },
@@ -96,6 +104,7 @@ export default {
       }
     },
     async onChangeSelect(value) {
+      // TODO: onchangeのたびにロードをかけるのをやめて、初期に全部ロードしたい
       const imageMain = await loadImage(`./${value}`)
       this.images[1].config.image = imageMain
       this.$refs.canvas.refreshDraw(this.images[1].name)
@@ -124,7 +133,7 @@ export default {
   padding-top: 12px;
 }
 
-.stage{
+.stage {
   border: 1px solid #000000;
 }
 

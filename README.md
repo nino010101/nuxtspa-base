@@ -20,3 +20,19 @@ $ yarn generate
 ```
 
 For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+
+## TODOList
+### components
+- canvas -> done
+- hsl slider -> done
+- select box -> done
+- button
+- select + button & expand hsl slider
+- accordion or tab
+- file upload
+
+### utils
+- axios module
+- tailwind css setting
+
+
