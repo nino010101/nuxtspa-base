@@ -7,7 +7,7 @@
         <option disabled value="">
           {{ config.default }}
         </option>
-        <option v-for="(option,idx) in config.options" :key="idx">
+        <option v-for="(option,idx) in config.options" :key="idx" :value="idx">
           {{ option }}
         </option>
       </select>
@@ -33,7 +33,7 @@ export default {
       }
     },
     value: {
-      type: String,
+      type: String || Number,
       required: true
     }
   },
