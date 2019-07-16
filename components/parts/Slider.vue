@@ -2,7 +2,7 @@
   <div class="slider">
     <!-- slider component -->
     <div class="form-group">
-      <p>{{ config.label }}:</p>
+      <p>{{ config.label }}：</p>
       <input
         :id="config.id"
         v-model="sliderValue"

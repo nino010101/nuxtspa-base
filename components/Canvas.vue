@@ -31,18 +31,15 @@ export default {
       }
     }
   },
-  mounted() {
-    console.log(this.$refs)
-  },
   methods: {
-    hslFilterDraw(target) {
+    hslFilterDraw(target, hsl) {
       const node = this.$refs[target][0].getStage().getLayer()
       node.cache()
       // eslint-disable-next-line no-undef
       node.filters([Konva.Filters.HSL])
-      node.hue(parseFloat(this.images[0].hsl.hue))
-      node.luminance(parseFloat(this.images[0].hsl.luminance))
-      node.saturation(parseFloat(this.images[0].hsl.saturation))
+      node.hue(parseFloat(hsl.hue))
+      node.luminance(parseFloat(hsl.luminance))
+      node.saturation(parseFloat(hsl.saturation))
       node.batchDraw()
     },
     refreshDraw(target) {

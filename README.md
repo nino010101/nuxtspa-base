@@ -26,9 +26,9 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - canvas -> done
 - hsl slider -> done
 - select box -> done
-- button
+- button -> done
 - select + button & expand hsl slider
-- accordion or tab
+- accordion or tab -> done
 - file upload
 
 ### utils

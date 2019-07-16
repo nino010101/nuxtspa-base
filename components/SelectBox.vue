@@ -2,8 +2,8 @@
   <div class="select-box">
     <!-- slider component -->
     <div class="form-group">
-      <p>{{ config.label }}:</p>
-      <select v-model="selectedValue" @change="onChangeSelect">
+      <p>{{ config.label }}：</p>
+      <select v-model="selectedValue" class="select" @change="onChangeSelect">
         <option disabled value="">
           {{ config.default }}
         </option>
@@ -51,9 +51,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../scss/color";
   .form-group{
-    width: auto; // 暫定、幅の持ち方は後で考える
+    width: 100%;
     display: flex;
-    align-self: center;
+    align-items: center;
+    padding: 0 8px;
+  }
+  .select {
+    border: 1px solid $color-gray;
+    padding: 2px;
   }
 </style>

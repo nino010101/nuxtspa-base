@@ -5,13 +5,12 @@
         <Canvas v-if="!isLoading" ref="canvas" :config="configKonva" :images="images" />
       </div>
       <div class="parts-sample">
-        <Accordion :label="'test'" />
-      </div>
-      <div class="parts-sample">
-        <HSLSlider :hsl-values="images[0].hsl" @updateValue="onUpdateValue" />
-      </div>
-      <div class="parts-sample">
         <SelectBox :config="selectConfig" :value="selectValue" @changeSelect="onChangeSelect" />
+      </div>
+      <div class="parts-sample">
+        <Accordion :label="'色設定'">
+          <HSLSlider :hsl-values="images[0].hsl" @updateValue="onUpdateValue" />
+        </Accordion>
       </div>
     </div>
   </div>

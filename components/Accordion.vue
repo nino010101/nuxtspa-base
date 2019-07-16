@@ -18,13 +18,12 @@
     >
       <div
         v-show="isOpen"
-        class="js-accordion--target"
-        :class="{ '_state-open': isOpened }"
+        class="js-accordion--target accordion-contents"
+        :class="{ '_state-open': isOpen }"
       >
-        <slot />
-        <p>hogehogehoge</p>
-        <p>fugafugafuga</p>
-        <p>piyopiyopiyo</p>
+        <div class="slot-wrapper">
+          <slot />
+        </div>
       </div>
     </transition>
   </div>
@@ -64,22 +63,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../scss/color";
 .accordion-header {
+  height: 32px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 0 8px;
+
 }
+.accordion-contents {
+  border: 1px solid $color-gray;
+  .slot-wrapper {
+    margin: 12px 8px;
+  }
+}
+
 .js-accordion {
   &--target {
     transition: height 0.4s ease-in-out;
     overflow-y: hidden;
   }
   &-enter-active {
-    animation-duration: 1s;
+    animation-duration: 0.4s;
     animation-fill-mode: both;
     animation-name: js-accordion--anime__opend;
   }
   &-leave-active {
-    animation-duration: 1s;
+    animation-duration: 0.4s;
     animation-fill-mode: both;
     animation-name: js-accordion--anime__closed;
   }
