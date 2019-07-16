@@ -53,13 +53,11 @@ export default {
   },
   methods: {
     onChangeHue(value) {
-      console.log(value)
       this.$emit('updateHue', value)
     },
     onChangeSaturation() {},
     onChangeLuminance() {},
     onUpdateSliderValue(value, hsl) {
-      console.log(value, hsl)
       this.$emit('updateValue', { value: value, hsl: hsl })
     }
   }
