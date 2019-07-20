@@ -42,7 +42,7 @@
             <p>ハートの色</p>
           </div>
           <div class="form-parts">
-            <SelectBox :config="heart.selectConfig" :value="heart.selectValue" @changeSelect="onChangeSelect" />
+            <SelectBox :config="heart.selectConfig" :value="heart.selectValue" @changeSelect="onChangeHeart" />
           </div>
         </div>
         <!--
@@ -177,11 +177,6 @@ export default {
       }
     }
   },
-  mounted() {
-    console.log(process.env.TEST)
-    console.log('debug:', isMobile)
-    console.log(window.innerWidth)
-  },
   created() {
     this.createImages()
   },
@@ -226,11 +221,9 @@ export default {
       this.$refs.canvas.refreshDraw(this.images[1].name)
     },
     async onChangeHeart(value) {
-      await console.log(value)
-      /*
-      const imageHeart = await loadImage(this.heart.files[value])
+      const imageHeart = await loadImage(this.heart.selectConfig.files[parseInt(value)])
       this.images[4].config.image = imageHeart
-      this.$refs.canvas.refreshDraw(this.images[4].name) */
+      this.$refs.canvas.refreshDraw(this.images[4].name)
     }
   }
 }
