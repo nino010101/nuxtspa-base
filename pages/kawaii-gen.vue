@@ -131,6 +131,15 @@ export default {
           config: { image: null, width: canvasSize, height: canvasSize }
         },
         {
+          name: 'face',
+          hsl: {
+            hue: 0,
+            saturation: 0,
+            luminance: 0
+          },
+          config: { image: null, width: canvasSize, height: canvasSize }
+        },
+        {
           name: 'hair',
           hsl: {
             hue: 0,
@@ -160,9 +169,9 @@ export default {
       ],
       face: {
         selectConfig: {
-          label: '表情画像',
-          default: '表情を選んでください',
-          options: ['youngwoman_37.png', 'youngwoman_38.png', 'youngwoman_42.png']
+          label: '髪型',
+          options: ['金森まりあ', 'キラッツ', 'メルティック'],
+          files: ['./heart_maria.png', './heart_kirats.png', './heart_meltic.png']
         },
         selectValue: ''
       },
@@ -189,13 +198,15 @@ export default {
       // 表情画像
       const imageMainBase = await loadImage('./main_base.png')
       this.images[1].config.image = imageMainBase
-      const imageMainHair = await loadImage('./main_hair.png')
-      this.images[2].config.image = imageMainHair
-      const imageMainLine = await loadImage('./main_line.png')
-      this.images[3].config.image = imageMainLine
+      const imageFace = await loadImage('./face.png')
+      this.images[2].config.image = imageFace
+      const imageColor = await loadImage('./01_color.png')
+      this.images[3].config.image = imageColor
+      const imageLine = await loadImage('./01_line.png')
+      this.images[4].config.image = imageLine
       // ハート画像
       const imageHeart = await loadImage('./heart_maria.png')
-      this.images[4].config.image = imageHeart
+      this.images[5].config.image = imageHeart
       this.isLoading = false
     },
     onUpdateValue(data, name) {
@@ -222,7 +233,7 @@ export default {
     },
     async onChangeHeart(value) {
       const imageHeart = await loadImage(this.heart.selectConfig.files[parseInt(value)])
-      this.images[4].config.image = imageHeart
+      this.images[5].config.image = imageHeart
       this.$refs.canvas.refreshDraw(this.images[4].name)
     }
   }
